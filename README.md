@@ -11,7 +11,7 @@ Personal knowledge base with AI assistant. It allows you to preserve links and d
 ## How to Run
 1. **clone the repository**
 ```bash 
-git clone <your-repo-url>
+git clone git@github.com:DN0p/learning-copilot.git
 ```
 2. **Setup environment variables**
 ```bash 
