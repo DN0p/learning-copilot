@@ -8,10 +8,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { SourceStatuses } from './enums/source-statuses.enum';
-import { Users } from '../users/users.entity';
+import { User } from '../users/users.entity';
 
 @Entity('sources')
-export class Sources {
+export class Source {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -21,9 +21,9 @@ export class Sources {
   @Column({ type: 'text', unique: true })
   link: string;
 
-  @ManyToOne(() => Users, (user) => user.sources, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.sources, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
-  user: Users;
+  user: User;
 
   @Column({ type: 'enum', enum: SourceStatuses, default: SourceStatuses.NEW })
   status: SourceStatuses;
