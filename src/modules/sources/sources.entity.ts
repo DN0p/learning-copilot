@@ -10,7 +10,7 @@ import {
 import { SourceStatuses } from './enums/source-statuses.enum';
 import { User } from '../users/users.entity';
 
-@Entity('sources')
+@Entity('source')
 export class Source {
   @PrimaryGeneratedColumn('uuid')
   id: string;

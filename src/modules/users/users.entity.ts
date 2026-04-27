@@ -8,7 +8,8 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { UserRole } from './enums/user-role.enum';
-import { Source} from '../sources/sources.entity';
+import { Source } from '../sources/sources.entity';
+import { Auth } from '../auth/auth.entity';
 
 @Entity('user')
 export class User {
@@ -27,6 +28,9 @@ export class User {
 
   @OneToMany(() => Source, (source) => source.user)
   sources: Source[];
+
+  @OneToMany(() => Auth, (auth) => auth.user)
+  auth: Auth[];
 
   @CreateDateColumn()
   createdAt: Date;
