@@ -1,5 +1,5 @@
 import { ConflictException, Injectable } from "@nestjs/common";
-import { Repository } from "typeorm";
+import { Repository, EntityManager } from "typeorm";
 import * as bcrypt from 'bcrypt'
 import { User } from "./users.entity"
 import { CreateUserDto } from "./dto/user"
@@ -11,8 +11,8 @@ export class UsersService {
         @InjectRepository(User)
         private usersRepository: Repository<User>) { }
 
-    async create(userData: CreateUserDto) {
-        const isUserExist = await this.usersRepository.findOneBy({ email: userData.email })
+    async create(userData: CreateUserDto, manager?: EntityManager) {
+        const isUserExist = manager ? await manager.findOne(User, { where: { email: userData.email } }) : await this.usersRepository.findOneBy({ email: userData.email })
         if (isUserExist) {
             throw new ConflictException('User with this email already exists')
         }
@@ -20,7 +20,11 @@ export class UsersService {
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(userData.password, salt)
 
-        const newUser : User = await this.usersRepository.save({ ...userData, password: hashedPassword })
-        return newUser
+        const newUser = manager
+            ? await manager.save(User, { ...userData, password: hashedPassword })
+            : await this.usersRepository.save({ ...userData, password: hashedPassword });
+
+        const { password, ...userWithoutPassword } = newUser;
+        return userWithoutPassword;
     }
 }
