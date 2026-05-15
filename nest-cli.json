@@ -15,7 +15,7 @@
       "type": "application",
       "root": "app/data-processing",
       "entryFile": "main",
-      "sourceRoot": "app/data-processing",
+      "sourceRoot": "app/data-processing/src",
       "compilerOptions": {
         "tsConfigPath": "app/data-processing/tsconfig.app.json"
       }

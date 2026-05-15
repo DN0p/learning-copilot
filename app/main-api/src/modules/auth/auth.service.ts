@@ -4,7 +4,7 @@ import { DataSource, Repository, EntityManager } from "typeorm";
 import { User } from "../users/users.entity";
 import { Auth } from "./auth.entity";
 import { JwtService } from "@nestjs/jwt";
-import { CreateUserDto } from "../users/dto/user";
+import { CreateUserDto } from "../users/dto/create-user.dto";
 import { UsersService } from "../users/users.service";
 import * as bcrypt from 'bcrypt';
 import { JwtSignOptions } from '@nestjs/jwt';

@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from "@nestjs/common";
 import { Repository, EntityManager } from "typeorm";
 import * as bcrypt from 'bcrypt'
 import { User } from "./users.entity"
-import { CreateUserDto } from "./dto/user"
+import { CreateUserDto } from "./dto/create-user.dto"
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
