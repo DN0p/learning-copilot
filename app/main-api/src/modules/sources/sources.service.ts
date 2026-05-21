@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { CreateSourceDto } from "./dto/create-source.dto";
 import { DetectorService } from "./detectors/detector.service";
 import { SourceTypes } from "./enums/source-types.enum";
 
@@ -7,8 +6,8 @@ import { SourceTypes } from "./enums/source-types.enum";
 export class SourcesService {
     constructor(private readonly detectorService: DetectorService) { }
 
-    async create(file: Express.Multer.File | string,) {
-        const sourceType = await this.detectorService.detect(file);
+    async create(data: Express.Multer.File | string, userId?: string) {
+        const sourceType = await this.detectorService.detect(data);
         if (sourceType === SourceTypes.UNKNOWN) {
             throw new BadRequestException('Unsupported file type');
         }
@@ -16,6 +15,7 @@ export class SourcesService {
         return {
             message: 'Source created successfully',
             source: sourceType,
+            userId,
         };
     }
 }
